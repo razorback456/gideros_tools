@@ -1,4 +1,6 @@
 --[[
+author (c)Oleg Simonenko
+https://www.facebook.com/SimArt.info
 клас кнопки  -- вдключити мультитач
 ВИКОРИСТАННЯ:
 ------------------------------------
