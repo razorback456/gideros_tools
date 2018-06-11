@@ -3,7 +3,8 @@ Scale by gesture
  
 клас Масштабування жестом
 v.1.0   https://simartinfo.blogspot.com/p/v.html
-author (c)https://www.facebook.com/AndroidMobileGame
+author (c)Oleg Simonenko
+https://www.facebook.com/SimArt.info
 ВИКОРИСТАННЯ:
 ------------------------------------
 using:
