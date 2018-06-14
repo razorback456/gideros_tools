@@ -1,0 +1,29 @@
+<project>
+ <properties app_icon="" osx_signingId="" mouseTouchOrder="0" ios_bundle="com.yourdomain." build_number="1" osx_org="GiderosMobile" packageName="com.yourdomain.yourapp" architecture="0" encryptCode="0" autorotation="0" scaleMode="7" mouseToTouch="1" osx_installerId="" winrt_org="GiderosMobile" retinaDisplay="0" orientation="1" win_org="GiderosMobile" osx_bundle="com.yourdomain." windowWidth="0" osx_category="5" iosDevice="0" app_name="" android_template="0" html5_mem="256" tv_icon="" splashScaleMode="0" encryptAssets="0" disableSplash="0" logicalWidth="600" html5_fbload="100" osx_domain="giderosmobile.com" exportMode="0" splash_v_image="" version_code="1" fps="60" html5_pack="0" version="1.0" backgroundColor="#ffffff" splash_h_image="" win_domain="giderosmobile.com" html5_fbinstant="0" touchToMouse="1" winrt_package="com.yourdomain.yourapp" logicalHeight="800" windowHeight="0" vsync="0" html5_host="">
+  <imageScales/>
+  <plugins>
+   <plugin name="Lua Socket" enabled="0"/>
+  </plugins>
+  <exports/>
+ </properties>
+ <folder name="class">
+  <file source="slice9.lua"/>
+ </folder>
+ <folder name="img">
+  <file source="../images/HARD.png"/>
+  <file source="../images/Tileset-Pack-1-Sheet_26.png"/>
+  <file source="../images/Tileset-Pack-1-Sheet_25.png"/>
+  <file source="../images/Tileset-Pack-1-Sheet_18.png"/>
+  <file source="../images/Tileset-Pack-1-Sheet_15.png"/>
+  <file source="../images/Tileset-Pack-1-Sheet_14.png"/>
+  <file source="../images/Tileset-Pack-1-Sheet_12.png"/>
+  <file source="../images/Tileset-Pack-1-Sheet_09.png"/>
+  <file source="../images/Tileset-Pack-1-Sheet_08.png"/>
+  <file source="../images/Tileset-Pack-1-Sheet_04.png"/>
+  <file source="../images/Tileset-Pack-1-Sheet_02.png"/>
+  <file source="../images/shop290x248.png"/>
+  <file source="../images/brick_tiles_v2_01.png"/>
+  <file source="../images/17.png"/>
+ </folder>
+ <file source="main.lua"/>
+</project>
