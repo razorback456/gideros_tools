@@ -7,7 +7,35 @@ v.1.0
 author (c)Oleg Simonenko
 https://www.facebook.com/SimArt.info
 
+--variant 1----------------------
+--slice9.new(img,x,y,w,h,mode)
+local Sprite1=slice9.new("img/Tileset-Pack-1-Sheet_15.png",5,8,0,0,1)
+ stage:addChild(Sprite1)
+ Sprite1:goSize(25,24)
+ 
 
+--variant 2-----------------
+  
+-- slise9(img,x,y,w,h,mode)
+wall=slise9("img/brick_tiles_v2_01.png",8,8,8,1,1)
+water=slise9("img/17.png",0,0,0,0,1)
+
+--slise_name(x,y,w,h,[r])
+ stage:addChild(wall(10,0,50,24))
+ stage:addChild(wall(100,0,100,24))
+ 
+ stage:addChild(wall(30,20,100,24,10))
+ 
+ 
+ stage:addChild(water(0,50,200,50))
+ stage:addChild(water(10,60,200,50))
+ stage:addChild(water(77,99,200,50))
+ 
+ -- var3  
+ local Sprite1=slice9.new("img/Tileset-Pack-1-Sheet_15.png",5,8,-1,1,1)
+ stage:addChild(Sprite1)
+ Sprite1:goSize(20,100)
+ Sprite1:setX(10)
 
 ]]
 
@@ -16,18 +44,19 @@ slice9 = gideros.class(Sprite)
 function slice9:init(img,x,y,w,h,mode)
 --  -h  відзеркалити
 --mode  tile - 1-adaptive, 2-continuos
-
+ 
 
 	if mode then self.vp={} end
 	
 	self.texture = Texture.new(img)
 	local ws,hs = self.texture:getWidth(),self.texture:getHeight()
-	if w<0 then local fw=1 w=0 end
-	if h<0 then local fh=1 h=0 end
-	if x<0 then local fh=2 x=0 end
-	if y<0 then local fw=2 y=0 end
+	 
+	if w<0 then  fw=1 w=0 end
+	if h<0 then  fh=1 h=0 end
+	if x<0 then  fw=2 x=0 end
+	if y<0 then  fh=2 y=0 end
 	self.d={x,y,ws,hs,mode,w,h,fh,fw}
-	
+	 fh,fw=nil
 	
 	self.T1 =  TextureRegion.new(self.texture, 0, 0, x, y) 
 	self.T2 =  TextureRegion.new(self.texture, x, 0, ws-w-x, y)
@@ -66,23 +95,30 @@ function slice9:init(img,x,y,w,h,mode)
 	self.b8:setPosition(x,hs-h)
 	self.b9:setPosition(ws-w,hs-h)
 	 
+	 self.group2 = Sprite.new()
+	 self:addChild(self.group2)
 	 
-		self:addChild(self.b1)
-		self:addChild(self.b2)
-		self:addChild(self.b3)
+	 self.group1 = Sprite.new()
+	 self.group2:addChild(self.group1)
+	 
+		self.group1:addChild(self.b1)
+		self.group1:addChild(self.b2)
+		self.group1:addChild(self.b3)
 		
-		self:addChild(self.b4)
-		self:addChild(self.b5)
-		self:addChild(self.b6)
+		self.group1:addChild(self.b4)
+		self.group1:addChild(self.b5)
+		self.group1:addChild(self.b6)
 		
-		self:addChild(self.b7)
-		self:addChild(self.b8)
-		self:addChild(self.b9)	 
+		self.group1:addChild(self.b7)
+		self.group1:addChild(self.b8)
+		self.group1:addChild(self.b9)	 
+		
 end
 
 
 function slice9:goSize(ww,hh)
-	 
+	 if self.d[9] then ww=ww/2 end
+	  if self.d[8] then hh=hh/2 end
 	 --self.d={x,y,ws,hs,m,w,h}
 	--print(self.d[3],self.d[4])
 	--ws-(x+w)  серединка стара
@@ -151,7 +187,7 @@ function slice9:goSize(ww,hh)
 					self.vp[#self.vp+1]=Viewport.new()
 					self.vp[#self.vp]:setContent(sw[k])
 					self.vp[#self.vp]:setPosition(oldW*scaleW*i,0) 
-					self:addChild(self.vp[#self.vp])
+					self.group1:addChild(self.vp[#self.vp])
 				
 				end
 				
@@ -162,7 +198,7 @@ function slice9:goSize(ww,hh)
 					self.vp[#self.vp+1]=Viewport.new()
 					self.vp[#self.vp]:setPosition(0,oldH*scaleH*i) 
 					self.vp[#self.vp]:setContent(sw[k])
-					self:addChild(self.vp[#self.vp])
+					self.group1:addChild(self.vp[#self.vp])
 				
 				end
 			end
@@ -171,7 +207,7 @@ function slice9:goSize(ww,hh)
 					self.vp[#self.vp+1]=Viewport.new()
 					self.vp[#self.vp]:setPosition(oldW*scaleW*iw,oldH*scaleH*ih) 
 					self.vp[#self.vp]:setContent(self.b5)
-					self:addChild(self.vp[#self.vp])
+					self.group1:addChild(self.vp[#self.vp])
 				
 				end
 			end
@@ -183,8 +219,41 @@ function slice9:goSize(ww,hh)
 		
 		
 	end
+	-------------------------------
+	--self.d={x,y,ws,hs,mode,w,h,fh,fw}
 	
+	if self.d[9] then 
+		local fl_w=Viewport.new()
+		if self.d[9]==1 then 
+			fl_w:setX(self.group1:getWidth()*2) 
+		else
+			self.group2:setX(self.group1:getWidth())
+		end
+		 
+		 
+		fl_w:setContent(self.group1)
+		fl_w:setScaleX(-1)
+		self.group2:addChild(fl_w)
 	
+	end
+	
+	if self.d[8] then 
+		local fl_h=Viewport.new()
+		if self.d[8]==1 then 
+			fl_h:setY(self.group2:getHeight()*2) 
+		else
+			 
+			self.group1:setY(self.group1:getHeight())
+			fl_h:setY(self.group2:getHeight()*2)
+			 
+		end
+		 
+		 
+		fl_h:setContent(self.group2)
+		fl_h:setScaleY(-1)
+		self:addChild(fl_h)
+	
+	end
 end
 
 
@@ -197,7 +266,7 @@ function slise9(i,x,y,w,h,m)
 			local s=slice9.new(i,x,y,w,h,m)
 			 s:goSize(pw,ph)
 			 s:setPosition(px,py)
-			 print(r)
+			 --print(r)
 			 if r then s:setRotation(r) end
 			return s
 			end)
