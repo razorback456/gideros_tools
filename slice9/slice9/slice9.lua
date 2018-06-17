@@ -7,14 +7,14 @@ v.1.0
 author (c)Oleg Simonenko
 https://www.facebook.com/SimArt.info
 
---variant 1----------------------
+--variant 1  class ----------------------
 --slice9.new(img,x,y,w,h,mode)
 local Sprite1=slice9.new("img/Tileset-Pack-1-Sheet_15.png",5,8,0,0,1)
  stage:addChild(Sprite1)
  Sprite1:goSize(25,24)
  
 
---variant 2-----------------
+--variant 2  object -----------------
   
 -- slise9(img,x,y,w,h,mode)
 wall=slise9("img/brick_tiles_v2_01.png",8,8,8,1,1)
@@ -31,7 +31,7 @@ water=slise9("img/17.png",0,0,0,0,1)
  stage:addChild(water(10,60,200,50))
  stage:addChild(water(77,99,200,50))
  
- -- var3  
+ -- var3  flip 
  local Sprite1=slice9.new("img/Tileset-Pack-1-Sheet_15.png",5,8,-1,1,1)
  stage:addChild(Sprite1)
  Sprite1:goSize(20,100)
@@ -44,12 +44,28 @@ slice9 = gideros.class(Sprite)
 function slice9:init(img,x,y,w,h,mode)
 --  -h  відзеркалити
 --mode  tile - 1-adaptive, 2-continuos
- 
+local ws,hs,ax,ay
+
+if img[1] then
+	ax=img[2]
+	ay=img[3]
+	ws=img[4]
+	hs=img[5]
+	--print(hs)
+	img=img[1]
+else
+	ax=0
+	ay=0
+end
 
 	if mode then self.vp={} end
 	
 	self.texture = Texture.new(img)
-	local ws,hs = self.texture:getWidth(),self.texture:getHeight()
+	
+	if not ws then 	
+		ws,hs = self.texture:getWidth(),self.texture:getHeight() 
+	end
+	
 	 
 	if w<0 then  fw=1 w=0 end
 	if h<0 then  fh=1 h=0 end
@@ -57,19 +73,22 @@ function slice9:init(img,x,y,w,h,mode)
 	if y<0 then  fh=2 y=0 end
 	self.d={x,y,ws,hs,mode,w,h,fh,fw}
 	 fh,fw=nil
+	print(ax+0, ay+0, ax+x, ay+y)
+	print(ax+x, ay+0, ax+ws-w-x, ay+y)
+	print(ax+ws-w, ay+0, ax+w, ay+y)
 	
-	self.T1 =  TextureRegion.new(self.texture, 0, 0, x, y) 
-	self.T2 =  TextureRegion.new(self.texture, x, 0, ws-w-x, y)
-	self.T3 =  TextureRegion.new(self.texture, ws-w, 0, w, y) 
+	self.T1 =  TextureRegion.new(self.texture, ax+0, ay+0, x, y) 
+	self.T2 =  TextureRegion.new(self.texture, ax+x, ay+0, ws-w-x, y)
+	self.T3 =  TextureRegion.new(self.texture, ax+ws-w, ay+0, w, y) 
 	
 	
-	self.T4 =  TextureRegion.new(self.texture, 0 , y, x, hs-h-y) 
-	self.T5 = TextureRegion.new(self.texture, x, y, ws-w-x, hs-h-y)
-	self.T6 =  TextureRegion.new(self.texture, ws-w, y, w, hs-h-y) 
+	self.T4 =  TextureRegion.new(self.texture, ax+0 , ay+y, x, hs-h-y) 
+	self.T5 = TextureRegion.new(self.texture, ax+x, ay+y, ws-w-x, hs-h-y) 
+	self.T6 =  TextureRegion.new(self.texture, ax+ws-w, ay+y, w, hs-h-y) 
 	
-	self.T7 =  TextureRegion.new(self.texture, 0, hs-h, x, h) 
-	self.T8 =  TextureRegion.new(self.texture, x, hs-h, ws-w-x, h)  
-	self.T9 =  TextureRegion.new(self.texture, ws-w, hs-h, w, h)
+	self.T7 =  TextureRegion.new(self.texture, ax+0, ay+hs-h, x, h) 
+	self.T8 =  TextureRegion.new(self.texture, ax+x, ay+hs-h, ws-w-x, h)  
+	self.T9 =  TextureRegion.new(self.texture, ax+ws-w, ay+hs-h, w, h)
 	
 	self.b1 =  Bitmap.new(self.T1)
 	self.b2 =  Bitmap.new(self.T2)

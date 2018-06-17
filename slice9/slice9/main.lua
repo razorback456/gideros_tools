@@ -1,30 +1,20 @@
 
- 
-local kartinka = Bitmap.new(Texture.new("img/Tileset-Pack-1-Sheet_15.png"))
-stage:addChild(kartinka)
-local kartinka = Bitmap.new(Texture.new("img/Tileset-Pack-1-Sheet_25.png"))
-kartinka:setY(30)
-stage:addChild(kartinka)
+
+
+ --[[
 
 --slice9.new(img,x,y,w,h,mode)
-local Sprite1=slice9.new("img/Tileset-Pack-1-Sheet_15.png",5,8,-1,1,1)
+--slice9.new({atlas,x,y,w,h},x,y,w,h,mode)
+local Sprite1=slice9.new({"img/17.png",33,22,95,50},0,0,0,0,1)
  stage:addChild(Sprite1)
- Sprite1:goSize(20,100)
- Sprite1:setX(10)
+ Sprite1:goSize(400,100)
+ Sprite1:setY(100) 
  
-local Sprite1=slice9.new("img/Tileset-Pack-1-Sheet_15.png",5,8,-1,1,1)
- stage:addChild(Sprite1)
- Sprite1:goSize(60,25)
- Sprite1:setX(40)
+ Sprite1:setScale(2)
+ ]]
  
- local Sprite1=slice9.new("img/Tileset-Pack-1-Sheet_09.png",9,8,-1,6)
- stage:addChild(Sprite1)
- Sprite1:goSize(60,25)
- Sprite1:setY(40)
-  Sprite1:setX(40)
-  
-   local Sprite1=slice9.new("img/Tileset-Pack-1-Sheet_25.png",-1,1,1,1)
- stage:addChild(Sprite1)
- Sprite1:goSize(30,30)
- Sprite1:setY(70)
-  Sprite1:setX(40)
+ 
+ wall=slise9({"img/17.png",33,22,40,40},0,0,0,0,1)
+ 
+--slise_name(x,y,w,h,[r])
+ stage:addChild(wall(10,100,400,100))

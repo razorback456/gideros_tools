@@ -1,5 +1,5 @@
 <project>
- <properties app_icon="" osx_signingId="" mouseTouchOrder="0" ios_bundle="com.yourdomain." build_number="1" osx_org="GiderosMobile" packageName="com.yourdomain.yourapp" architecture="0" encryptCode="0" autorotation="0" scaleMode="7" mouseToTouch="1" osx_installerId="" winrt_org="GiderosMobile" retinaDisplay="0" orientation="1" win_org="GiderosMobile" osx_bundle="com.yourdomain." windowWidth="0" osx_category="5" iosDevice="0" app_name="" android_template="0" html5_mem="256" tv_icon="" splashScaleMode="0" encryptAssets="0" disableSplash="0" logicalWidth="600" html5_fbload="100" osx_domain="giderosmobile.com" exportMode="0" splash_v_image="" version_code="1" fps="60" html5_pack="0" version="1.0" backgroundColor="#ffffff" splash_h_image="" win_domain="giderosmobile.com" html5_fbinstant="0" touchToMouse="1" winrt_package="com.yourdomain.yourapp" logicalHeight="800" windowHeight="0" vsync="0" html5_host="">
+ <properties vsync="0" win_domain="giderosmobile.com" html5_mem="256" version="1.0" backgroundColor="#ffffff" osx_installerId="" html5_host="" build_number="1" retinaDisplay="0" winrt_package="com.yourdomain.yourapp" architecture="0" logicalHeight="800" autorotation="0" splashScaleMode="0" ios_bundle="com.yourdomain." tv_icon="" splash_v_image="" osx_signingId="" orientation="1" mouseToTouch="1" app_icon="" windowWidth="0" splash_h_image="" osx_category="5" windowHeight="0" encryptAssets="0" disableSplash="0" android_template="0" osx_bundle="com.yourdomain." html5_fbinstant="0" win_org="GiderosMobile" logicalWidth="600" packageName="com.yourdomain.yourapp" html5_fbload="100" fps="60" encryptCode="0" version_code="1" scaleMode="3" winrt_org="GiderosMobile" osx_domain="giderosmobile.com" app_name="" exportMode="0" mouseTouchOrder="0" osx_org="GiderosMobile" touchToMouse="1" html5_pack="0" iosDevice="0">
   <imageScales/>
   <plugins>
    <plugin name="Lua Socket" enabled="0"/>
@@ -7,6 +7,7 @@
   <exports/>
  </properties>
  <folder name="class">
+  <file source="editor.lua"/>
   <file source="slice9.lua"/>
  </folder>
  <folder name="img">
