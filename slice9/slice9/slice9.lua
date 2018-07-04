@@ -3,7 +3,7 @@
  
  
 клас slice9
-v.1.0  
+v.1.1  
 author (c)Oleg Simonenko
 https://www.facebook.com/SimArt.info
 
@@ -241,36 +241,50 @@ function slice9:goSize(ww,hh)
 	-------------------------------
 	--self.d={x,y,ws,hs,mode,w,h,fh,fw}
 	
-	if self.d[9] then 
-		local fl_w=Viewport.new()
+if self.d[9] then   --фліп горизонтально
+	
+		---
+		if self.fl_w then
+			self.fl_w:removeFromParent()
+			self.fl_w=nil
+		end
+		---
+		self.fl_w=Viewport.new()
 		if self.d[9]==1 then 
-			fl_w:setX(self.group1:getWidth()*2) 
+			self.fl_w:setX(self.group1:getWidth()*2) 
 		else
 			self.group2:setX(self.group1:getWidth())
 		end
 		 
 		 
-		fl_w:setContent(self.group1)
-		fl_w:setScaleX(-1)
-		self.group2:addChild(fl_w)
+		self.fl_w:setContent(self.group1)
+		self.fl_w:setScaleX(-1)
+		self.group2:addChild(self.fl_w)
 	
 	end
 	
-	if self.d[8] then 
-		local fl_h=Viewport.new()
+	if self.d[8] then  --фліп вертикально
+		---
+		if self.fl_h then
+			self.fl_h:removeFromParent()
+			self.fl_h=nil
+		end
+		---
+	
+		self.fl_h=Viewport.new()
 		if self.d[8]==1 then 
-			fl_h:setY(self.group2:getHeight()*2) 
+			self.fl_h:setY(self.group2:getHeight()*2) 
 		else
 			 
 			self.group1:setY(self.group1:getHeight())
-			fl_h:setY(self.group2:getHeight()*2)
+			self.fl_h:setY(self.group2:getHeight()*2)
 			 
 		end
 		 
 		 
-		fl_h:setContent(self.group2)
-		fl_h:setScaleY(-1)
-		self:addChild(fl_h)
+		self.fl_h:setContent(self.group2)
+		self.fl_h:setScaleY(-1)
+		self:addChild(self.fl_h)
 	
 	end
 end
