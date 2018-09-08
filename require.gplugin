@@ -1,0 +1,400 @@
+<plugin
+ name="Require"
+ description="Allow to set requirements in Android Manifest or iOS files" >
+ <property name="reqAccel" type="boolean" title="Accelerometer is mandatory"/>
+ <property name="reqCompass" type="boolean" title="Compass is mandatory"/>
+ <property name="reqNoGps" type="boolean" title="Gps is not used in this app"/>
+ <property name="reqGps" type="boolean" title="Gps is mandatory"/>
+ <property name="reqGpsBackground" type="boolean" title="Gps shall be available in background"/>
+ <property name="reqGpsReason" type="string" title="Explain why you need GPS (iOS)"/> 
+ <property name="reqGyro" type="boolean" title="Gyroscope is mandatory"/>
+ <property name="reqTouch" type="boolean" title="Touchscreen is mandatory"/>
+ <property name="reqTVCompat" type="boolean" title="Android TV compatibility"/>
+ <property name="reqTVExtCompat" type="boolean" title="Android TV extended compatibility"/>
+ <property name="reqNoInternet" type="boolean" title="This app never access internet"/>
+ <property name="reqNoVibrator" type="boolean" title="Vibrator not used in this app"/>
+ <property name="reqFullOrientation" type="boolean" title="Game can be both portrait and landscape"/>
+ <property name="reqNoSensor" type="boolean" title="Screen doesn't rotate (tilt game) unknown initial orientation"/>
+ <property name="reqMaxAspect" type="boolean" title="Support aspect ratios of 2.1 or higher"/>
+ <property name="reqScreenShape" type="boolean" title="Support non rectangular screen shapes (iOS, notch ready)"/>
+ <property name="reqWriteExternalStorage" type="boolean" title="App needs to to write external storage"/>
+ <property name="reqPhoneOnly" type="boolean" title="This app is targeting phones only, no tablets"/>
+ <property name="reqExpRegCompliance" type="boolean" title="This app conforms to US Export regulations relative to encryption"/> 
+ <property name="reqCanOpenUrl" type="string" title="This app can open these url schemes: (with ',' separator)"/>
+ <property name="reqCanRespondUrl" type="string" title="This app can respond to these url schemes: (with ',' separator)"/>
+ <property name="reqEnable64bits" type="boolean" title="Enable 64bits libs (android)"/> 
+ <property name="reqDisableX86" type="boolean" title="Disable x86 libs (android)"/> 
+ <property name="reqDisableArm" type="boolean" title="Disable arm libs (android)"/> 
+ <property name="reqDisable32bits" type="boolean" title="Disable 32bits libs (android)"/>
+ <property name="reqDisablexlargeScreen" type="boolean" title="Disable xlargeScreen (android)"/>
+ <property name="reqDisablelargeScreens" type="boolean" title="Disable largeScreens (android)"/>
+ <property name="reqDisablenormalScreens" type="boolean" title="Disable normalScreens (android)"/>
+  <property name="reqDisablesmallScreens" type="boolean" title="Disable smallScreens (android)"/>
+ <target name="AndroidStudio,APK,Android">
+	<if condition="[[[plugin.reqDisablexlargeScreen]]]">
+    	<template name="AndroidManifest" path="">
+        	<replacelist wildcards="AndroidManifest.xml">
+	            <replace>
+            		<orig>android:xlargeScreens="true"</orig>
+        	    	<by>android:xlargeScreens="false"</by>
+    	        </replace>
+        	</replacelist>
+    	</template>
+    </if>
+	<if condition="[[[plugin.reqDisablelargeScreens]]]">
+    	<template name="AndroidManifest" path="">
+        	<replacelist wildcards="AndroidManifest.xml">
+	            <replace>
+            		<orig>android:largeScreens="true"</orig>
+        	    	<by>android:largeScreens="false"</by>
+    	        </replace>
+        	</replacelist>
+    	</template>
+    </if>
+	<if condition="[[[plugin.reqDisablenormalScreens]]]">
+    	<template name="AndroidManifest" path="">
+        	<replacelist wildcards="AndroidManifest.xml">
+	            <replace>
+            		<orig>android:normalScreens="true"</orig>
+        	    	<by>android:normalScreens="false"</by>
+    	        </replace>
+        	</replacelist>
+    	</template>
+    </if>
+	<if condition="[[[plugin.reqDisablesmallScreens]]]">
+    	<template name="AndroidManifest" path="">
+        	<replacelist wildcards="AndroidManifest.xml">
+	            <replace>
+            		<orig>android:smallScreens="true"</orig>
+        	    	<by>android:smallScreens="false"</by>
+    	        </replace>
+        	</replacelist>
+    	</template>
+    </if>	
+ 	<if condition="[[[plugin.reqTVCompat]]]">
+    	<template name="AndroidManifest" path="">
+        	<replacelist wildcards="AndroidManifest.xml">
+            	<append>
+            		<orig><![CDATA[<application ]]></orig>
+            		<by>android:hardwareAccelerated="true" android:isGame="true" </by>
+    	        </append>
+        	</replacelist>
+    	</template>
+    </if> 
+ 	<if condition="[[[plugin.reqTVExtCompat]]]">
+    	<template name="AndroidManifest" path="">
+        	<replacelist wildcards="AndroidManifest.xml">
+            	<append>
+            		<orig><![CDATA[<!-- TAG:MANIFEST-EXTRA -->]]></orig>
+            		<by><![CDATA[
+    <uses-feature android:name="android.hardware.telephony" android:required="false"/>
+    <uses-feature android:name="android.hardware.camera" android:required="false"/>
+	<uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
+    <uses-feature android:name="android.hardware.bluetooth" android:required="false"/>
+    <uses-feature android:name="android.hardware.nfc" android:required="false"/>
+    <uses-feature android:name="android.hardware.gps" android:required="false"/>
+    <uses-feature android:name="android.hardware.microphone" android:required="false"/>
+    <uses-feature android:name="android.hardware.sensor" android:required="false"/>]]></by>
+    	        </append>
+        	</replacelist>
+    	</template>
+    </if> 
+ 	<if condition="[[[plugin.reqNoGps]]]">
+    	<template name="AndroidManifest" path="">
+	        <replacelist wildcards="AndroidManifest.xml">
+	            <replace>
+            		<orig><![CDATA[<uses-feature android:name="android.hardware.location" android:required="false"/>]]></orig>
+        	    	<by></by>
+    	        </replace>
+	            <replace>
+            		<orig><![CDATA[<uses-feature android:name="android.hardware.location.gps" android:required="false"/>]]></orig>
+            		<by></by>
+        	    </replace>
+	            <replace>
+            		<orig><![CDATA[<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>]]></orig>
+            		<by></by>
+        	    </replace>
+    	    </replacelist>
+	    </template>
+ 	</if>
+ 	<if condition="[[[plugin.reqNoVibrator]]]">
+    	<template name="AndroidManifest" path="">
+	        <replacelist wildcards="AndroidManifest.xml">
+	            <replace>
+            		<orig><![CDATA[<uses-permission android:name="android.permission.VIBRATE"/>]]></orig>
+            		<by></by>
+        	    </replace>
+    	    </replacelist>
+	    </template>
+ 	</if>
+ 	<if condition="[[[plugin.reqNoInternet]]]">
+    	<template name="AndroidManifest" path="">
+	        <replacelist wildcards="AndroidManifest.xml">
+	            <replace>
+            		<orig><![CDATA[<uses-permission android:name="android.permission.INTERNET"/>]]></orig>
+            		<by></by>
+        	    </replace>
+    	    </replacelist>
+	    </template>
+ 	</if>
+ 	<if condition="[[[plugin.reqFullOrientation]]]">
+    	<template name="AndroidManifest" path="">
+	        <replacelist wildcards="AndroidManifest.xml">
+	            <replace>
+            		<orig><![CDATA[android:screenOrientation="sensorLandscape"]]></orig>
+            		<by>android:screenOrientation="fullSensor"</by>
+        	    </replace>
+	            <replace>
+            		<orig><![CDATA[android:screenOrientation="sensorPortrait"]]></orig>
+            		<by>android:screenOrientation="fullSensor"</by>
+        	    </replace>
+    	    </replacelist>
+	    </template>
+ 	</if>
+
+ 	<if condition="[[[plugin.reqNoSensor]]]">
+    	<template name="AndroidManifest" path="">
+	        <replacelist wildcards="AndroidManifest.xml">
+	            <replace>
+            		<orig><![CDATA[android:screenOrientation="landscape"]]></orig>
+            		<by>android:screenOrientation="nosensor"</by>
+        	    </replace>
+	            <replace>
+            		<orig><![CDATA[android:screenOrientation="sensorLandscape"]]></orig>
+            		<by>android:screenOrientation="nosensor"</by>
+        	    </replace>
+	            <replace>
+            		<orig><![CDATA[android:screenOrientation="portrait"]]></orig>
+            		<by>android:screenOrientation="nosensor"</by>
+        	    </replace>
+	            <replace>
+            		<orig><![CDATA[android:screenOrientation="sensorPortrait"]]></orig>
+            		<by>android:screenOrientation="nosensor"</by>
+        	    </replace>
+	            <replace>
+            		<orig><![CDATA[android:screenOrientation="fullSensor"]]></orig>
+            		<by>android:screenOrientation="nosensor"</by>
+        	    </replace>
+    	    </replacelist>
+	    </template>
+ 	</if>
+	
+    <if condition="[[[plugin.reqMaxAspect]]]">
+    	<template name="AndroidManifest" path="">
+        	<replacelist wildcards="AndroidManifest.xml">
+            	<append>
+            		<orig><![CDATA[<!-- TAG:APPLICATION-EXTRA -->]]></orig>
+            		<by><![CDATA[
+<meta-data android:name="android.max_aspect" android:value="2.1"/>]]></by>
+    	        </append>
+        	</replacelist>
+    	</template>
+    </if>
+
+    <if condition="[[[plugin.reqGps]]]">
+    	<template name="AndroidManifest" path="">
+	        <replacelist wildcards="AndroidManifest.xml">
+	            <replace>
+            		<orig>android:name="android.hardware.location" android:required="false"</orig>
+        	    	<by>android:name="android.hardware.location" android:required="true"</by>
+    	        </replace>
+	            <replace>
+            		<orig>android:name="android.hardware.location.gps" android:required="false"</orig>
+            		<by>android:name="android.hardware.location.gps" android:required="true"</by>
+        	    </replace>
+    	    </replacelist>
+	    </template>
+    </if>
+    <if condition="[[[plugin.reqGpsBackground]]]">
+    	<template name="AndroidManifest" path="">
+	        <replacelist wildcards="GiderosSettings.java">
+	            <replace>
+            		<orig>backgroundLocation=false</orig>
+        	    	<by>backgroundLocation=true</by>
+    	        </replace>
+    	    </replacelist>
+	    </template>
+    </if>
+    <if condition="[[[plugin.reqAccel]]]">
+    	<template name="AndroidManifest" path="">
+        	<replacelist wildcards="AndroidManifest.xml">
+            	<append>
+            		<orig><![CDATA[<!-- TAG:MANIFEST-EXTRA -->]]></orig>
+            		<by><![CDATA[
+<uses-feature android:name="android.hardware.sensor.accelerometer"/>]]></by>
+    	        </append>
+        	</replacelist>
+    	</template>
+    </if>
+    <if condition="[[[plugin.reqGyro]]]">
+    	<template name="AndroidManifest" path="">
+        	<replacelist wildcards="AndroidManifest.xml">
+            	<append>
+            		<orig><![CDATA[<!-- TAG:MANIFEST-EXTRA -->]]></orig>
+            		<by><![CDATA[
+<uses-feature android:name="android.hardware.sensor.gyroscope"/>]]></by>
+    	        </append>
+        	</replacelist>
+    	</template>
+    </if>
+    <if condition="[[[plugin.reqCompass]]]">
+    	<template name="AndroidManifest" path="">
+        	<replacelist wildcards="AndroidManifest.xml">
+            	<append>
+            		<orig><![CDATA[<!-- TAG:MANIFEST-EXTRA -->]]></orig>
+            		<by><![CDATA[
+<uses-feature android:name="android.hardware.sensor.compass"/>]]></by>
+    	        </append>
+        	</replacelist>
+    	</template>
+    </if>
+    <if condition="[[[plugin.reqTouch]]]">
+    	<template name="AndroidManifest" path="">
+        	<replacelist wildcards="AndroidManifest.xml">
+	            <replace>
+            		<orig>android:name="android.hardware.touchscreen" android:required="false"</orig>
+        	    	<by>android:name="android.hardware.touchscreen" android:required="true"</by>
+    	        </replace>
+        	</replacelist>
+    	</template>
+    </if>
+    <if condition="[[[plugin.reqWriteExternalStorage]]]">
+    <lua>
+    local ap=require("Tools/export_android")
+    ap.usePermission("android.permission.WRITE_EXTERNAL_STORAGE")
+    </lua>
+    </if>
+    <lua><![CDATA[
+    	local archs={ ["armeabi-v7a"]=true, ["x86"]=true }
+		if (tonumber(Export.getProperty("plugin.reqEnable64bits")) or 0)>0 then
+			archs["arm64-v8a"]=true
+			archs["x86_64"]=true
+		end
+		if (tonumber(Export.getProperty("plugin.reqDisableX86")) or 0)>0 then
+			archs["x86_64"]=nil
+			archs["x86"]=nil
+		end
+		if (tonumber(Export.getProperty("plugin.reqDisableArm")) or 0)>0 then
+			archs["arm64-v8a"]=nil
+			archs["armeabi-v7a"]=nil
+		end		
+ 		if (tonumber(Export.getProperty("plugin.reqDisable32bits")) or 0)>0 then
+            archs["armeabi-v7a"]=nil
+            archs["x86"]=nil
+        end
+        local archStr=""
+		for a,_ in pairs(archs) do archStr=archStr..", \""..a.."\"" end
+		if #archStr>0 then archStr=archStr:sub(2) end
+		print("ARCHS:"..archStr)
+		Export.callXml([[
+			<template name="AndroidManifest" path="">
+				<replacelist wildcards="build.gradle">
+					<replace>
+						<orig>abiFilters "armeabi", "armeabi-v7a", "x86", "mips"</orig>
+						<by>abiFilters ]]..archStr..[[</by>
+					</replace>
+				</replacelist>
+			</template>]])
+			
+		local urls = Export.getProperty("plugin.reqCanRespondUrl")
+		if urls and string.len(urls)>0 then
+			local t,pattern = {},urls.format("([^%s]+)", ",")
+			urls:gsub(pattern, function(s) t[#t+1] = s end)
+			if #t>0 then
+				local IFT=[[<intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data android:scheme="%s" />
+    </intent-filter>]]
+    			local IFE="<template name=\"AndroidManifest\" path=\"\"><replacelist wildcards=\"AndroidManifest.xml\"><append><orig><![CDATA[<!-- TAG:INTENT-FILTER-EXTRA -->]".."]></orig><by><![CDATA[%s]".."]></by></append></replacelist></template>"
+    			local ifs=""
+				for i,v in ipairs(t) do ifs=ifs..IFT:format(v) end
+				if #ifs>0 then Export.callXml(IFE:format(ifs)) end
+			end
+		end
+	]]></lua>
+ </target>
+ <target name="iOS">
+	<lua>
+		<![CDATA[local iOSProject=require("Tools/export_ios")]]>
+	</lua>
+    <if condition="[[[plugin.reqPhoneOnly]]]">
+   	<template name="Project" path="">
+        	<replacelist wildcards="project.pbxproj">
+	    		<replace>
+				<orig><![CDATA[TARGETED_DEVICE_FAMILY = "1,2"]]></orig>
+				<by><![CDATA[TARGETED_DEVICE_FAMILY = 1]]></by>
+	    		</replace>
+        	</replacelist>
+       </template>
+    </if>
+    <if condition="[[[plugin.reqScreenShape]]]">
+   	<template name="Project" path="">
+        	<replacelist wildcards="Contents.json">
+	    		<replace>
+				<orig><![CDATA["subtype" : "2436hUnused",]]></orig>
+				<by><![CDATA["subtype" : "2436h",]]></by>
+	    		</replace>
+        	</replacelist>
+       </template>
+    </if>	
+    <if condition="[[[plugin.reqExpRegCompliance]]]">
+   	<template name="Project" path="">
+       	<replacelist wildcards="[[[project.name]]]-Info.plist;Info.plist">
+		    <prepend>
+				<orig><![CDATA[<key>CFBundleDisplayName</key>]]></orig>
+				<by><![CDATA[	
+					<key>ITSAppUsesNonExemptEncryption</key><false/>
+				]]></by>
+	    	</prepend>
+        </replacelist>
+	</template>
+    </if>
+	<lua><![CDATA[
+		local urls = Export.getProperty("plugin.reqCanOpenUrl")
+		if urls and string.len(urls)>0 then
+			local t,pattern = {},urls.format("([^%s]+)", ",")
+			urls:gsub(pattern, function(s) t[#t+1] = s end)
+			if #t>0 then
+				local urls=iOSProject.InfoPlist.LSApplicationQueriesSchemes or { }
+				iOSProject.InfoPlist.LSApplicationQueriesSchemes=urls
+				for i,v in ipairs(t) do
+					table.insert(urls,v)
+				end
+			end
+		end
+		local urls = Export.getProperty("plugin.reqCanRespondUrl")
+		if urls and string.len(urls)>0 then
+			local t,pattern = {},urls.format("([^%s]+)", ",")
+			urls:gsub(pattern, function(s) t[#t+1] = s end)
+			if #t>0 then
+				local urls=iOSProject.InfoPlist.CFBundleURLTypes or { }
+				iOSProject.InfoPlist.CFBundleURLTypes=urls
+				for i,v in ipairs(t) do
+					table.insert(urls,{ CFBundleURLSchemes={ v } })
+				end
+			end
+		end
+		if (tonumber(Export.getProperty("plugin.reqNoGps") or 0))==0 then
+			iOSProject.InfoPlist.NSLocationUsageDescription=Export.getProperty("plugin.reqGpsReason")
+			iOSProject.InfoPlist.NSLocationWhenInUseUsageDescription=Export.getProperty("plugin.reqGpsReason")
+		else
+			iOSProject.InfoPlist.NSLocationUsageDescription=nil
+			iOSProject.InfoPlist.NSLocationWhenInUseUsageDescription=nil
+		end
+	]]></lua>
+	   <if condition="[[[plugin.reqGpsBackground]]]">
+    	<template name="Project" path="">
+		<replacelist wildcards="[[[project.name]]]-Info.plist;Info.plist">
+			<prepend>
+				<orig><![CDATA[<!-- TAG:GIDEROS-IOS:PLIST:BGMODES -->]]></orig>
+				<by><![CDATA[
+					<string>location</string>
+				]]></by>
+			</prepend>
+		</replacelist>
+		</template>
+    </if>
+ </target> 
+</plugin>
