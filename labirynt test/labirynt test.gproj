@@ -1,0 +1,20 @@
+<project>
+ <properties retinaDisplay="0" winrt_package="com.yourdomain.yourapp" html5_mem="256" win_domain="giderosmobile.com" backgroundColor="#ffffff" splash_h_image="" osx_installerId="" packageName="com.yourdomain.yourapp" version="1.0" build_number="1" html5_symbols="0" html5_host="" architecture="0" autorotation="0" android_template="0" encryptAssets="0" disableSplash="0" app_name="" mouseToTouch="1" winrt_org="GiderosMobile" ios_bundle="com.yourdomain." tv_icon="" touchToMouse="1" exportMode="0" osx_category="5" windowHeight="0" iosDevice="0" vsync="0" logicalHeight="800" logicalWidth="480" encryptCode="0" osx_bundle="com.yourdomain." html5_fbinstant="0" html5_fbload="100" osx_signingId="" win_org="GiderosMobile" fps="30" version_code="1" orientation="1" app_icon="" scaleMode="4" splashScaleMode="0" windowWidth="0" osx_domain="giderosmobile.com" html5_wasm="0" mouseTouchOrder="0" html5_pack="0" osx_org="GiderosMobile" splash_v_image="">
+  <imageScales/>
+  <plugins/>
+  <exports/>
+ </properties>
+ <file source="assets/zvzd1.png"/>
+ <file source="assets/target.png"/>
+ <file source="coliziya.lua"/>
+ <file source="labirynt.lua"/>
+ <file source="onEnterFrame.lua"/>
+ <file source="room.lua"/>
+ <file source="star.lua"/>
+ <file source="starline.lua"/>
+ <file source="todo.lua" excludeFromExecution="1"/>
+ <file source="tuch.lua"/>
+ <dependency to="star.lua" from="labirynt.lua"/>
+ <dependency to="room.lua" from="labirynt.lua"/>
+ <dependency to="room.lua" from="star.lua"/>
+</project>

@@ -1,0 +1,5 @@
+room1= Sprite.new()
+stage:addChild(room1)
+room1:setPosition(355,300)
+room2= Sprite.new()
+stage:addChild(room2)
