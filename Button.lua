@@ -1,14 +1,12 @@
 --[[
 author (c)Oleg Simonenko
 https://www.facebook.com/SimArt.info
+v.1.2
 клас кнопки  -- вдключити мультитач
 ВИКОРИСТАННЯ:
 ------------------------------------
 
-	local score=Bitmap.new(Texture.new("img/gui_70.png"))
-	score:setAnchorPoint(0.5, 0)
-	score:setPosition(halfWidth, miny)
-	self:addChild(score)
+
 	 
 	local pause = Button.new(Bitmap.new(Texture.new("img/gui_48.png")))
 	stage:addChild(pause)
@@ -17,18 +15,18 @@ https://www.facebook.com/SimArt.info
 	pause:addEventListener("clickDown", 
 		function(e)	
 		e:stopPropagation()
-			knopka:play()
+			print("clickDown") 
 		end)
 		
 	pause:addEventListener("clickUP", 
 		function(e)	
 		e:stopPropagation()
-			knopka:play()
+			print("clickUP") 
 			 
 		end)	
 		pause:addEventListener("clickMove", 
 		function(e)	
-		print(e.x) 
+		print("clickMove "..e.x) 
 			 
 			 
 		end)	
@@ -45,8 +43,12 @@ centrY =application:getContentHeight()/2
 -----
 Button = gideros.class(Sprite)
 
-function Button:init(upState)
-	self:addChild(upState)
+function Button:init(upState,ColorTransform)
+	if ColorTransform then self.ColorTransform=ColorTransform end --відключити  трансформ кольору кнопки
+	
+	self:addChild(upState) -- додати спрайт кнопки
+	
+	
 	self:addEventListener(Event.TOUCHES_BEGIN, self.onTouchesBegin, self)
 	self:addEventListener(Event.TOUCHES_MOVE, self.onTouchesMove, self)
 	self:addEventListener(Event.TOUCHES_END, self.onTouchesEnd, self)
@@ -66,8 +68,11 @@ end
 			 
 				 
 				self:dispatchEvent(Event.new("clickDown"))
+				self.click=true --для функції click 
 				self.on=true
+				if not self.ColorTransform then
 				self:setColorTransform(2, 2, 2, 1)
+				end
 			end
 			--print("natysnuv"..event.touch.id)
 		end
@@ -87,8 +92,11 @@ end
 			if self.on==false then
 				
 				self:dispatchEvent(Event.new("clickDown"))
+				 self.click=nil --для функції click 
 				self.on=true
-				self:setColorTransform(2, 2, 2, 1)
+				if not self.ColorTransform then
+					self:setColorTransform(2, 2, 2, 1)
+				end
 				---print("naviv"..event.touch.id)
 			
 					
@@ -96,6 +104,7 @@ end
 		else
 					 
 					local clickMove = Event.new("clickMove")
+					self.click=nil --для функції click 
 					clickMove.x = event.touch.x
 					clickMove.y = event.touch.y
 					self:dispatchEvent(clickMove)
@@ -115,9 +124,9 @@ end
 
  function Button:onTouchesEnd(event)
  	--  якшо кнопка нажата на паузі 
-								conf.v=nil
-								conf.x=nil
-								conf.y=nil
+							--	conf.v=nil
+								--conf.x=nil
+								--conf.y=nil
 	if self:hitTestPoint(event.touch.x, event.touch.y) then
 	
 		self.focus=nil
@@ -127,6 +136,7 @@ end
 			self.on=false
 			self:setColorTransform(1, 1, 1, 1)
 			self:dispatchEvent(Event.new("clickUP"))
+			if self.click then self:dispatchEvent(Event.new("click")) end --для функції click 
 			--print("vidtysnuv"..event.touch.id)
 		end
 		--event:stopPropagation()
@@ -138,5 +148,7 @@ end
 	end
 	
 end
+
+
 
 
