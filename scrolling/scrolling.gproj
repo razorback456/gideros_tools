@@ -1,0 +1,30 @@
+<project>
+ <properties mouseTouchOrder="0" osx_org="GiderosMobile" splash_h_image="" build_number="1" logicalWidth="320" html5_fbload="100" windowWidth="0" version="1.0" fps="60" version_code="1" osx_domain="giderosmobile.com" backgroundColor="#ffffff" osx_installerId="" html5_wasm="0" exportMode="0" win_org="GiderosMobile" app_name="" retinaDisplay="0" html5_pack="0" scaleMode="6" vsync="1" touchToMouse="1" winrt_org="GiderosMobile" osx_category="5" windowHeight="0" packageName="com.yourdomain.yourapp" html5_symbols="0" android_template="0" win_domain="giderosmobile.com" encryptCode="0" tv_icon="" splashScaleMode="0" iosDevice="0" html5_host="" encryptAssets="0" disableSplash="0" html5_mem="256" orientation="1" architecture="0" autorotation="3" ios_bundle="com.yourdomain." html5_fbinstant="0" mouseToTouch="1" winrt_package="com.yourdomain.yourapp" app_icon="" logicalHeight="480" osx_signingId="" splash_v_image="" osx_bundle="com.yourdomain.">
+  <imageScales/>
+  <plugins>
+   <plugin enabled="1" name="Require"/>
+  </plugins>
+  <exports/>
+ </properties>
+ <folder name="classes">
+  <file name="assets/classes/anim_f.lua"/>
+  <file name="assets/classes/button.lua"/>
+  <file name="assets/classes/easing.lua"/>
+  <file name="assets/classes/scenemanager.lua"/>
+  <file name="assets/classes/scrolling.lua"/>
+ </folder>
+ <folder name="images">
+  <file name="assets/images/back_up.png"/>
+  <file name="assets/images/button_down.png"/>
+  <file name="assets/images/crate.png"/>
+  <file name="assets/images/gideros_mobile.png"/>
+  <file name="assets/images/left-up.png"/>
+  <file name="assets/images/noun_radio button_1.png"/>
+  <file name="assets/images/noun_radio button_2.png"/>
+  <file name="assets/images/right-up.png"/>
+ </folder>
+ <file name="assets/init.lua"/>
+ <file name="assets/level_1.lua"/>
+ <file name="assets/level_select.lua"/>
+ <file name="assets/main.lua"/>
+</project>
