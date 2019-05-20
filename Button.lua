@@ -1,7 +1,9 @@
 --[[
-author (c)Oleg Simonenko
-https://www.facebook.com/SimArt.info
-v.1.2
+   (c)Oleg Simonenko
+www.facebook.com/SimArt.info
+simartinfo.blogspot.com
+github.com/razorback456/gideros_tools
+
 клас кнопки  -- вдключити мультитач
 ВИКОРИСТАННЯ:
 ------------------------------------
@@ -60,12 +62,13 @@ end
  function Button:onTouchesBegin(event)
  
 	if self:hitTestPoint(event.touch.x, event.touch.y) then
-	
+	--print(1)
 		if event.touch.id~=self.focus then 
+		--print(2)
 			self.focus=event.touch.id
 			
 			if self.on==false then
-			 
+			 --print(3)
 				 
 				self:dispatchEvent(Event.new("clickDown"))
 				self.click=true --для функції click 
@@ -102,7 +105,7 @@ end
 					
 			end
 		else
-					 
+					 event:stopPropagation()
 					local clickMove = Event.new("clickMove")
 					self.click=nil --для функції click 
 					clickMove.x = event.touch.x
@@ -148,6 +151,7 @@ end
 	end
 	
 end
+
 
 
 
