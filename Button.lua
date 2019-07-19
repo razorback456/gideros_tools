@@ -1,6 +1,6 @@
 --[[
+   v.3.1
    (c)Oleg Simonenko
-www.facebook.com/SimArt.info
 simartinfo.blogspot.com
 github.com/razorback456/gideros_tools
 
@@ -40,14 +40,14 @@ minX,minY,maxX,maxY=application:getLogicalBounds()
 -- ЗМІННІ
 centrX =application:getContentWidth()/2
 centrY =application:getContentHeight()/2
-
+ 
 
 -----
 Button = gideros.class(Sprite)
 
-function Button:init(upState,ColorTransform)
-	if ColorTransform then self.ColorTransform=ColorTransform end --відключити  трансформ кольору кнопки
-	
+function Button:init(upState,stopPropagation)
+	--if ColorTransform then self.ColorTransform=ColorTransform end --відключити  трансформ кольору кнопки
+	if stopPropagation then self.stopPropagation=true end -- вимикає мультитач
 	self:addChild(upState) -- додати спрайт кнопки
 	
 	
@@ -79,7 +79,7 @@ end
 			end
 			--print("natysnuv"..event.touch.id)
 		end
-		event:stopPropagation()
+		if self.stopPropagation then event:stopPropagation() end ----19.07.19
 	end
 
 end
@@ -105,7 +105,8 @@ end
 					
 			end
 		else
-					 event:stopPropagation()
+					 if self.stopPropagation then event:stopPropagation() end
+					 
 					local clickMove = Event.new("clickMove")
 					self.click=nil --для функції click 
 					clickMove.x = event.touch.x
@@ -120,7 +121,7 @@ end
 			self.on=false
 			self:setColorTransform(1, 1, 1, 1)
 		end
-		event:stopPropagation()
+		--event:stopPropagation()
 	end
 	
 end
@@ -138,11 +139,11 @@ end
 			
 			self.on=false
 			self:setColorTransform(1, 1, 1, 1)
-			self:dispatchEvent(Event.new("clickUP"))
+			 self:dispatchEvent(Event.new("clickUP"))  
 			if self.click then self:dispatchEvent(Event.new("click")) end --для функції click 
 			--print("vidtysnuv"..event.touch.id)
 		end
-		--event:stopPropagation()
+		if self.stopPropagation then event:stopPropagation() end ----19.07.19
 	else
 		if self.focus==event.touch.id then
 			self:setColorTransform(1, 1, 1, 1)
@@ -151,6 +152,7 @@ end
 	end
 	
 end
+
 
 
 
